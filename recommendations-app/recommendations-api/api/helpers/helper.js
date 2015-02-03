@@ -6,13 +6,12 @@ module.exports = {
   //getInsightRecswithProduct : getInsightRecswithProduct
 }
 
-function dataMapperInsights(rawBaas, respObj){
-  respObj.productName = rawBaas.get('Product');
-  respObj.scoreType = rawBaas.get('scoreType');
-  respObj.scoreValue = rawBaas.get('scoreValue');
-  respObj.userId = rawBaas.get('userId');
-  respObj.status = rawBaas.get('status');
-  return respObj;
+function getProduct(rawBaas, callback, client){
+  var options = {
+    type : 'products',
+    qs : {ql : "select * where ShorProdName = '" + rawBaas.get('Product') + "'"}
+  }
+  client.createCollection(options, callback);
 }
 
 function dataMapperProductBaas(prodBaas, respObj){
@@ -22,8 +21,6 @@ function dataMapperProductBaas(prodBaas, respObj){
   respObj.discount = prodBaas.get('discount');
   respObj.partNo = prodBaas.get('partNo');
   respObj.photos = [ {"photo" : prodBaas.get('photos/0')}, {"photo" : prodBaas.get('photos/1')} ];
-//  respObj['photos/0'] = prodBaas.get('photos/0');
-//  respObj['photos/1'] = prodBaas.get('photos/1');
   respObj.price = prodBaas.get('price');
   respObj.productName2 = prodBaas.get('productName2');
   respObj.rating = prodBaas.get('rating');
@@ -32,12 +29,13 @@ function dataMapperProductBaas(prodBaas, respObj){
   return respObj;
 }
 
-function getProduct(rawBaas, callback, client){
-	var options = {
-    type : 'products',
-    qs : {ql : "select * where ShorProdName = '" + rawBaas.get('Product') + "'"}
-  }
-  client.createCollection(options, callback);
+function dataMapperInsights(rawBaas, respObj){
+  respObj.productName = rawBaas.get('Product');
+  respObj.scoreType = rawBaas.get('scoreType');
+  respObj.scoreValue = rawBaas.get('scoreValue');
+  respObj.userId = rawBaas.get('userId');
+  respObj.status = rawBaas.get('status');
+  return respObj;
 }
 
 function appendCustomerIdtoQl(ql, customerId){

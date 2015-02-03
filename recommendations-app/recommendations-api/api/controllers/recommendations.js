@@ -47,6 +47,9 @@ function getRecommendations(req, res) {
     res.send(400, {code : 400, message : "ql parameter must contain at least one condition in where statement. e.g. select * where scoreType = 'recommendationScore'"})
     return;
   }
+  // Create an options object to use when querying API BaaS for
+  // score data corresponding to users. The query string represented
+  // by ql specifies the user ID to use when filtering scores.
   var options = {
     //type:'testscoresimport',
     type:'recommendationscores',
@@ -57,47 +60,52 @@ function getRecommendations(req, res) {
   // Create an array to hold the recommendations.
   var recommendations = [];
 
-  // Call a function of the API BaaS client object to create a collection 
-  // on the API BaaS server. The callback function receives a recs
-  // collection of API BaaS entities representing members of the 
-  // new collection. 
-  client.createCollection(options, function (err, recs) {
+  // Call a function of the API BaaS client object to create a local 
+  // collection object representing collection data on the API BaaS server. The 
+  // callback function receives a recommendationScores collection of API BaaS entities 
+  // representing members of the new collection. 
+  client.createCollection(options, function (err, recommendationScoresBaaS) {
     if (err) {
       // TODO: Code to handle the case of failure to create a collection.
     } else {
         // 
-        var ents = {entities : []}
+        var responseEntities = {entities : []}
         var recommendation = {};
-        while(recs.hasNextEntity()){
+        while(recommendationScoresBaaS.hasNextEntity()){
           // Add an entity to the recommendations array.
-          recommendations.push(recs.getNextEntity());
+          recommendations.push(recommendationScoresBaaS.getNextEntity());
         }
         // For each of the recommendations, 
         async.each(recommendations, 
           function(recommendation, callback){
-            // Create a collection of API BaaS product entities from 
-            // product names in the recommendations collection
-            helpers.getProduct(recommendation, function (err, products) {
+            // Create a local products collection object from API BaaS products entities.
+            // Use product names in the recommendations collection. This uses the 
+            // customer's recommended product name (based on score data) to fill out
+            // the rest of the product data from API BaaS.
+            helpers.getProduct(recommendation, function (err, productsBaaS) {
               if (err) {
                 // Handle error.
               } else {
-                  if(products.hasNextEntity()) {
-                      var product = products.getNextEntity();
-                      var ent = {};
-                      helpers.dataMapperProductBaas(product, ent)
-                      ents.entities.push(helpers.dataMapperInsights(recommendation, ent));
+                  // Using the returned API BaaS products collection, create
+                  // an array 
+                  if(productsBaaS.hasNextEntity()) {
+                      var productBaaS = productsBaaS.getNextEntity();
+                      var responseEntity = {};
+                      // Create a new, generic object with the retrieved product data.
+                      helpers.dataMapperProductBaas(productBaaS, responseEntity)
+                      // Merge product, user, and score data into a single response entity to return.
+                      responseEntities.entities.push(helpers.dataMapperInsights(recommendation, 
+                        responseEntity));
                   }
               }
               callback();
             }, client);
           },
           function(callback){
-            ents.cursor = recs._next;
-            res.json(ents);
+            responseEntities.cursor = recommendationScoresBaaS._next;
+            res.json(responseEntities);
           }
         );
     }
   });
 }
-
-
