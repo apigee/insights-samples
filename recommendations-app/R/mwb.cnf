@@ -1,0 +1,7 @@
+{
+  "account":"your-insights-account-name",
+  "user":"your-insights-user-name",
+  "password":"your-insights-password",
+  "host":"http://insights.host.name:portnumber",
+  "jobManager":"http://http://insights.host.name/insightsOne.html"
+ }
