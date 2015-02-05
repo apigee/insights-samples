@@ -1,13 +1,25 @@
+# Overview of this script.
+
+
 ##### Step 1: Connect to Insights environment and library #####
 library(ApigeeInsights)
 ls <- rm();
-account <- connect(configFile="~/mwb.conf")
+
+# Connection params.
+accountName <- "your-insights-account-name"
+userName <- "your-insights-user-name"
+password <- "your-insights-password"
+hostName <- "http://insights.host.name:portnumber"
+jobManagerUrl <- "http://http://insights.host.name/insightsOne.html"
+
+# Create a connection object
+insightsAccount <- connect(account=accountName, user=userName, password=password, 
+                   host=hostName, jobManagerBase=jobManagerUrl)
 
 
 ##### Step 2: Create project name, identify the catalog
 ##### where the data is located, and name the model #####
-project_name <- paste("RetailProject1-",
-    Sys.info()[[7]],sep="")
+project_name <- paste("RetailProject1-", Sys.info()[[7]],sep="")
 setCatalog("RetailDemo3")
 model <- Model$new(project=project_name,
     name="RetailModel12", description="Recommendation Model")
@@ -50,7 +62,6 @@ model$getStatus()
 ##### scored and execute model scoring process #####
 score <- Score$new(model,name="RecommendationScore-13",
     description="Retail Score",targetScoreTime="2013-09-20")
-#score$setConfiguration("maxCorelationPerSplit","180000")
 score$execute()
 score$getStatus()
 
@@ -61,7 +72,7 @@ report$execute()
 report
 report$getStatus()
 
-cReport <- account$getProject("RetailProject1-demo")$getModel("RetailModel12")$getScore("RecommendationScore-12")$getReport("RecommendationReport12")
+cReport <- insightsAccount$getProject("RetailProject1-demo")$getModel("RetailModel12")$getScore("RecommendationScore-12")$getReport("RecommendationReport12")
 cReport$getStatus()
 #cReport$plot(type="AUC")
 cReport$plot("CanonEOS6D",type="AUC")
