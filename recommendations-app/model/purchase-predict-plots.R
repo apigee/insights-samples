@@ -5,33 +5,38 @@
 library(ApigeeInsights)
 ls <- rm();
 
-# Connection params.
-accountName <- "iot"
-userName <- "iot"
-password <- "insightsone765"
-hostName <- "http://ec2-54-187-95-59.us-west-2.compute.amazonaws.com:8080/api"
+# Variables for parameters to use when connecting to Insights from R. Replace
+# the values here with values for your Insights account.
+accountName <- "your-insights-account-name"
+userName <- "your-insights-username"
+password <- "your-insights-password"
+hostName <- "url-to-your-insights-host"
 
 account <- connect(account = accountName, user = userName, password = password,
                    host = hostName)
 
 # Declare which report and score to get information about.
 
-cReport <- account$getProject("RecommendationTutorial-ApigeeCorporation")$getModel("RecommendationTutorialModel")$getScore("RecommendationTutorialScore")$getReport("RecommendationTutorialReport")
-cScore <- account$getProject("RecommendationTutorial-ApigeeCorporation")$getModel("RecommendationTutorialModel")$getScore("RecommendationTutorialScore")
+cReport <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")$getReport("RecommendationsModelAccuracyReport")
+
+cScore <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")
+
+cModel <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")
 
 # Print out the score and report objects in tabular form.
 # These lines print (to the console) what the top 10
 # items in the score and report actually contain.
-
+stream(cModel, 10)
 stream(cScore, 10)
 stream(cReport, 10)
 
-# Plot the report data in charts.
+## Plot the report data in charts.
 
 # Plot the "area under the curve" chart. 
-cReport$plot(type="AUC")
-cReport$plot("SkipHopZooBackpack",type="AUC")
+cReport$plot("SkipHopZooBackpack", type="AUC")
+
 # Plot the gain chart.
-cReport$plot(type="GAIN")
+cReport$plot("SkipHopZooBackpack", type="GAIN")
+
 # Plot the lift chart.
-cReport$plot(type="LIFT")
+cReport$plot("SkipHopZooBackpack", type="LIFT")
