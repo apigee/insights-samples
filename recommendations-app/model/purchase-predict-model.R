@@ -1,71 +1,121 @@
 # Overview of this script.
 
+# Insights will
+# look for patterns that lead to a purchase, producing a score indicating 
+# the 
 
-##### Step 1: Connect to Insights environment and library #####
+##### Step 1: Connect to Insights environment and library.
+
+# Use the ApigeeInsights R package to provide modeling functions.
 library(ApigeeInsights)
 ls <- rm();
 
-# Variables for parameters to use when connecting to Insights from R. Replace
-# the values here with values for your Insights account.
+# Variables for parameters to use when connecting to Insights 
+# from code. Replace the values here with values for your Insights account.
 accountName <- "your-insights-account-name"
 userName <- "your-insights-username"
 password <- "your-insights-password"
 hostName <- "url-to-your-insights-host"
 
-account <- connect(account = accountName, user = userName, password = password,
+# Create a connection for creating the model on the Insights server.
+account <- connect(account = accountName, user = userName, 
+                   password = password,
                    host = hostName)
 
-##### Step 2: Create project name, identify the catalog where the data is located, and name the model #####
+##### Step 2: Get things started by identifying a server-side
+##### project and the catalog holding the data.
+
+# Name the server-side project that will hold the modeling
+# configuration created by this code. Insights creates the project.
 project_name <- paste("RecommendationsTutorial")
 
+# Specify the catalog that contains the datasets to be 
+# used by this model.
 setCatalog("SampleDataset")
 
-model <- Model$new(project=project_name,name="RecommendationsModel", 
-                  description="A model to show propensity for buying a particular product.")
 
+##### Step 3: Create the model. This code specifies the pieces of data 
+##### to use in "training" the model. In training, Insights uses a subset
+##### of the data to identify patterns based on the events you specify.
+##### Further in the code, you have Insights apply the model to a fresh 
+##### set of data.
 
-##### Step 3: Set time frame for training data and identify event and profile datasets and specify attributes to be used in training the model #####
-model$setDateFilter(startTime="2013-01-01 00:00:00" , endTime="2013-08-19 23:59:59")
+# Create a model object so you can start setting model details. The name 
+# value is used to identify the model on the server.
+model <- Model$new(project=project_name, name="RecommendationsModel", 
+                   description="A model to show propensity for buying a particular product.")
+
+# Set time frame for training data. The model will be created by analyzing 
+# events whose timestamps fall within these boundaries.
+model$setDateFilter(startTime="2013-01-01 00:00:00", endTime="2013-08-19 23:59:59")
+
+# Set the user profile dataset to use, along with the parts of the data 
+# that should be considered in looking for patterns.
+model$setProfile(dataset="Profile", 
+                 dimensions=list(c("AgeGroup", "Gender",
+                                   "DownloadedMobileApp",
+                                   "EmailSubscriber")))
+
+# Add the events to look at for patterns. Each of these lines specifies 
+# an event dataset, along with the event attributes to include as dimensions 
+# in the model. Attributes correspond to columns in imported data.
 model$addActivityEvent(dataset="WebsiteVisit", dimensions="Page")
 model$addActivityEvent(dataset="Return", dimensions=list(c("ProductName","Reason")))
 model$addActivityEvent(dataset="StoreVisit", dimensions="City")
 model$addActivityEvent(dataset="CustomerServiceCall", dimensions="Reason")
 model$addActivityEvent(dataset="Offer", dimensions=list(c("Response","OfferType")))
 
-model$setProfile(dataset="Profile", 
-                 dimensions=list(c("AgeGroup", "Gender",
-                                   "DownloadedMobileApp",
-                                   "EmailSubscriber")))
-
-
-##### Step 4: Identify the Target dataset (required) for modeling #####
+# Identify the target dataset for modeling. In a model, the target is the
+# event representing the outcome you're trying to predict. 
 model$setResponseEvent(dataset="Purchase", predictionDimensions="ProductName")
 
 
-##### Step 5: Execute model training ####
+##### Step 4: Execute model training.
+
+# Tell Insights to begin looking for patterns based on the information
+# you've supplied. Depending on the amount of data, it can take some 
+# time to execute the model. Use the getStatus function to report progress
+# to the console.
 model$execute()
 model$getStatus()
 
 
-##### Step 6: Specify timeframe for dataset to be scored and execute model scoring process #####
-score <- Score$new(model,name="RecommendationsModelScore", 
+##### Step 5: Score the model. When scoring, you apply the newly created model
+##### against fresh data to see how reliable the model is. 
+
+# Create a score object. The target score time specifies the start of 
+# the timestamp range for data to use when scoring. By default, the end time
+# is the latest timestamp.
+score <- Score$new(model, name="RecommendationsModelScore", 
                    description="Output score from applying the model to the scoring dataset", 
                    targetScoreTime="2013-08-20")
+
+# Execute the scoring process on the server.
 score$execute()
 score$getStatus()
 
 
-##### Step 7: Generate model accuracy report and AUC chart #####
+##### Step 6: Generate a model accuracy report.
+
+# Create a report object with a name to identify it on the server. 
 report <- Report$new(score=score, name="RecommendationsModelAccuracyReport")
+
+# Execute the reporting process on the server.
 report$execute()
 report$getStatus()
 
-cScore <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")
+##### Step 7: Get the accuracy report and plot it into a chart.
 
+# Load report data from the server into an object.
 cReport <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")$getReport("RecommendationsModelAccuracyReport")
 
 cReport$getStatus()
 
-cReport$plot("SkipHopZooBackpack",type="AUC")
+# Plot the "area under the curve" chart. 
+cReport$plot("SkipHopZooBackpack", type="AUC")
+
+# Plot the gain chart.
 cReport$plot("SkipHopZooBackpack", type="GAIN")
+
+# Plot the lift chart.
 cReport$plot("SkipHopZooBackpack", type="LIFT")
