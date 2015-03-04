@@ -1,8 +1,8 @@
-# Overview of this script.
-
-# Insights will
-# look for patterns that lead to a purchase, producing a score indicating 
-# the 
+# This script creates and scores a model designed to predict the propensity 
+# for a user to buy a particular product. The script connects to the Insights 
+# server and its functions set model, score, and report configuration. Where 
+# execute methods are called, the script tells the server to use the 
+# configuration to create a model, score, or report.
 
 ##### Step 1: Connect to Insights environment and library.
 
@@ -59,11 +59,11 @@ model$setProfile(dataset="Profile",
 # Add the events to look at for patterns. Each of these lines specifies 
 # an event dataset, along with the event attributes to include as dimensions 
 # in the model. Attributes correspond to columns in imported data.
-model$addActivityEvent(dataset="WebsiteVisit", dimensions="Page")
+model$addActivityEvent(dataset="WebsiteVisit", dimensions="ProductCategory")
 model$addActivityEvent(dataset="Return", dimensions=list(c("ProductName","Reason")))
 model$addActivityEvent(dataset="StoreVisit", dimensions="City")
 model$addActivityEvent(dataset="CustomerServiceCall", dimensions="Reason")
-model$addActivityEvent(dataset="Offer", dimensions=list(c("Response","OfferType")))
+model$addActivityEvent(dataset="Offer", dimensions=list(c("ProductName","OfferType")))
 
 # Identify the target dataset for modeling. In a model, the target is the
 # event representing the outcome you're trying to predict. 
@@ -85,7 +85,7 @@ model$getStatus()
 
 # Create a score object. The target score time specifies the start of 
 # the timestamp range for data to use when scoring. By default, the end time
-# is the latest timestamp.
+# omitted here is the latest timestamp found in the data.
 score <- Score$new(model, name="RecommendationsModelScore", 
                    description="Output score from applying the model to the scoring dataset", 
                    targetScoreTime="2013-08-20")
@@ -103,6 +103,7 @@ report <- Report$new(score=score, name="RecommendationsModelAccuracyReport")
 # Execute the reporting process on the server.
 report$execute()
 report$getStatus()
+
 
 ##### Step 7: Get the accuracy report and plot it into a chart.
 
