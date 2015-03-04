@@ -31,7 +31,7 @@ project_name <- paste("RecommendationsTutorial")
 
 # Specify the catalog that contains the datasets to be 
 # used by this model.
-setCatalog("SampleDataset")
+setCatalog("RetailDatasets")
 
 
 ##### Step 3: Create the model. This code specifies the pieces of data 
