@@ -10,7 +10,7 @@ ls <- rm();
 accountName <- "your-insights-account-name"
 userName <- "your-insights-username"
 password <- "your-insights-password"
-hostName <- "url-to-your-insights-host"
+hostName <- "http://insights.apigee.net/IOMarketingManagerAPISS"
 
 # Connect to the server in order to retrieve data.
 account <- connect(account = accountName, user = userName, 
