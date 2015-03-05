@@ -8,7 +8,7 @@ module.exports = {
 function getProduct(rawBaas, callback, client){
   var options = {
     type : 'products',
-    qs : {ql : "select * where ShorProdName = '" + rawBaas.get('ProductName') + "'"}
+    qs : {ql : "select * where ProductName = '" + rawBaas.get('ProductName') + "'"}
   }
   client.createCollection(options, callback);
 }
@@ -19,7 +19,7 @@ function dataMapperProductBaas(prodBaas, respObj){
   respObj.CatName = prodBaas.get('CatName');
   respObj.discount = prodBaas.get('discount');
   respObj.partNo = prodBaas.get('partNo');
-  respObj.photos = [ {"photo" : prodBaas.get('photos/0')}, {"photo" : prodBaas.get('photos/1')} ];
+//  respObj.photos = [ {"photo" : prodBaas.get('photos/0')}, {"photo" : prodBaas.get('photos/1')} ];
   respObj.price = prodBaas.get('price');
   respObj.productName2 = prodBaas.get('productName');
   respObj.rating = prodBaas.get('rating');
