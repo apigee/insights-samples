@@ -18,9 +18,9 @@ var async = require('async');
 // your client ID and client secret; you'll find those on the 
 // Org Administration page of your BaaS admin console.
 var client = new usergrid.client({
-    URI : 'https://api-connectors-prod.apigee.net/appservices',
+    URI : 'https://api.usergrid.com',
     orgName: 'your-org-name',
-    appName: 'your-app-name',
+    appName: 'sandbox',
     clientId:'your-client-ID',
     clientSecret:'your-client-secret',
     authType:usergrid.AUTH_CLIENT_ID,
