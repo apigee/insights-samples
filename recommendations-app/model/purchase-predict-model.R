@@ -27,7 +27,7 @@ account <- connect(account = accountName, user = userName,
 
 # Name the server-side project that will hold the modeling
 # configuration created by this code. Insights creates the project.
-project_name <- paste("RecommendationsTutorial")
+project_name <- paste("MyRecommendationsTutorial")
 
 # Specify the catalog that contains the datasets to be 
 # used by this model.
@@ -42,7 +42,7 @@ setCatalog("RetailDatasets")
 
 # Create a model object so you can start setting model details. The name 
 # value is used to identify the model on the server.
-model <- Model$new(project=project_name, name="RecommendationsModel", 
+model <- Model$new(project=project_name, name="MyRecommendationsModel", 
                    description="A model to show propensity for buying a particular product.")
 
 # Set time frame for training data. The model will be created by analyzing 
@@ -86,7 +86,7 @@ model$getStatus()
 # Create a score object. The target score time specifies the start of 
 # the timestamp range for data to use when scoring. By default, the end time
 # omitted here is the latest timestamp found in the data.
-score <- Score$new(model, name="RecommendationsModelScore", 
+score <- Score$new(model, name="MyRecommendationsModelScore", 
                    description="Output score from applying the model to the scoring dataset", 
                    targetScoreTime="2013-08-20")
 
@@ -98,7 +98,7 @@ score$getStatus()
 ##### Step 6: Generate a model accuracy report.
 
 # Create a report object with a name to identify it on the server. 
-report <- Report$new(score=score, name="RecommendationsModelAccuracyReport")
+report <- Report$new(score=score, name="MyRecommendationsModelAccuracyReport")
 
 # Execute the reporting process on the server.
 report$execute()
@@ -108,7 +108,7 @@ report$getStatus()
 ##### Step 7: Get the accuracy report and plot it into a chart.
 
 # Load report data from the server into an object.
-cReport <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")$getReport("RecommendationsModelAccuracyReport")
+cReport <- account$getProject("MyRecommendationsTutorial")$getModel("MyRecommendationsModel")$getScore("MyRecommendationsModelScore")$getReport("MyRecommendationsModelAccuracyReport")
 
 cReport$getStatus()
 

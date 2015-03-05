@@ -18,9 +18,9 @@ account <- connect(account = accountName, user = userName,
                    host = hostName)
 
 # Declare which report and score to get information about.
-cReport <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")$getReport("RecommendationsModelAccuracyReport")
-cScore <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")
 cModel <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")
+cScore <- cModel$getScore("RecommendationsModelScore")
+cReport <- cScore$getReport("RecommendationsModelAccuracyReport")
 
 # Print out the score and report objects in tabular form. These lines print 
 # (to the console) what the top 10 items in the score and report actually 
