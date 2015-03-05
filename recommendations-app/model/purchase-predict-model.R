@@ -112,11 +112,11 @@ cReport <- account$getProject("MyRecommendationsTutorial")$getModel("MyRecommend
 
 cReport$getStatus()
 
-# Plot the "area under the curve" chart. 
-cReport$plot("SkipHopZooBackpack", type="AUC")
-
 # Plot the gain chart.
 cReport$plot("SkipHopZooBackpack", type="GAIN")
 
 # Plot the lift chart.
 cReport$plot("SkipHopZooBackpack", type="LIFT")
+
+# Plot the "area under the curve" chart. 
+cReport$plot("SkipHopZooBackpack", type="AUC")

@@ -31,11 +31,11 @@ stream(cReport, 10)
 
 ## Plot the report data in charts.
 
-# Plot the "area under the curve" chart. 
-cReport$plot("SkipHopZooBackpack", type="AUC")
-
 # Plot the gain chart.
 cReport$plot("SkipHopZooBackpack", type="GAIN")
 
 # Plot the lift chart.
 cReport$plot("SkipHopZooBackpack", type="LIFT")
+
+# Plot the "area under the curve" chart. 
+cReport$plot("SkipHopZooBackpack", type="AUC")
