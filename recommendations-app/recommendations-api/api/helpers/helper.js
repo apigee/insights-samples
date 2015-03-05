@@ -3,7 +3,6 @@ module.exports = {
 	getProduct : getProduct,
   dataMapperProductBaas : dataMapperProductBaas,
   appendCustomerIdtoQl : appendCustomerIdtoQl,
-  //getInsightRecswithProduct : getInsightRecswithProduct
 }
 
 function getProduct(rawBaas, callback, client){
