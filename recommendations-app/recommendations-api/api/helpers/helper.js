@@ -8,7 +8,7 @@ module.exports = {
 function getProduct(rawBaas, callback, client){
   var options = {
     type : 'products',
-    qs : {ql : "select * where ProductName = '" + rawBaas.get('ProductName') + "'"}
+    qs : {ql : "select * where ShorProdName = '" + rawBaas.get('ProductName') + "'"}
   }
   client.createCollection(options, callback);
 }
