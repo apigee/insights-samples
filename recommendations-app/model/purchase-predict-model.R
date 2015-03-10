@@ -10,14 +10,10 @@
 library(ApigeeInsights)
 ls <- rm();
 
-# Variables for parameters to use when connecting to Insights 
-# from code. Replace the values here with values for your Insights account.
-accountName <- "your-insights-account-name"
-userName <- "your-insights-username"
-password <- "your-insights-password"
-
-# Host name for access to the Insights server API.
-hostName <- "http://insights.apigee.net/IOMarketingManagerAPISS"
+# Create a connection for creating the model on the Insights server.
+# Before you can create a connection, you'll need to edit values in the .cnf
+# file, adding values you can use to connect to Insights.
+account <- connect(configFile="insights-connection.cnf")
 
 # Change this value to append new models, scores, and reports with
 # your name as an identifier. For each new model, score, and report
