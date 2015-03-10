@@ -20,12 +20,6 @@ account <- connect(configFile="insights-connection.cnf")
 # you create, you'll need a name that's unique in your Insights instance. 
 myID <- "your-name-or-other-identifier"
 
-# Create a connection for creating the model on the Insights server.
-account <- connect(account = accountName, user = userName, 
-                   password = password,
-                   host = hostName)
-
-
 ##### Step 2: Get things started by identifying a server-side
 ##### project and the catalog holding the data.
 
