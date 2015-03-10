@@ -8,7 +8,7 @@ ls <- rm();
 # Create a connection for creating the model on the Insights server.
 # Before you can create a connection, you'll need to edit values in the .cnf
 # file, adding values you can use to connect to Insights.
-account <- connect(configFile="insights-connection-test.cnf")
+account <- connect(configFile="insights-connection.cnf")
 
 # Declare which report and score to get information about.
 cModel <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")
