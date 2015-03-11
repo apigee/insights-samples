@@ -1,7 +1,0 @@
-{
-  "account":"your-insights-account-name",
-  "user":"your-insights-username",
-  "password":"your-insights-account-password",
- "host":"http://insights.datalake.apigee.net/IOMarketingManagerAPISS"
-}
-
