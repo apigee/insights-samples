@@ -10,14 +10,20 @@
 library(ApigeeInsights)
 ls <- rm();
 
+# Variables for parameters to use when connecting to Insights 
+# from code. Replace the values here with values for your Insights account.
+accountName <- "your-insights-account-name"
+userName <- "your-insights-username"
+password <- "your-insights-password"
+hostName <- "url-to-your-insights-host"
+
 # Create a connection for creating the model on the Insights server.
-# Before you can create a connection, you'll need to edit values in the .cnf
-# file, adding values you can use to connect to Insights.
-account <- connect(configFile="insights-connection.cnf")
+account <- connect(account = accountName, user = userName, 
+                  password = password, host = hostName)
 
 # Change this value to append new models, scores, and reports with
-# your name as an identifier. For each new model, score, and report
-# you create, you'll need a name that's unique in your Insights instance. 
+# your name as an identifier. This helps avoid conflicts with artifacts
+# already on the server.
 myID <- "your-name-or-other-identifier"
 
 ##### Step 2: Get things started by identifying a server-side
@@ -28,9 +34,8 @@ myID <- "your-name-or-other-identifier"
 projectName <- paste("RecommendationsTutorial", myID, sep="-")
 
 # Specify the catalog that contains the datasets to be 
-# used by this model.
+# used by this model. RetailDatasets is a pre-installed catalog.
 setCatalog("RetailDatasets")
-
 
 ##### Step 3: Create the model. This code specifies the pieces of data 
 ##### to use in "training" the model. In training, Insights uses a subset
@@ -40,8 +45,6 @@ setCatalog("RetailDatasets")
 
 # Create a model object so you can start setting model details. The name 
 # value is used to identify the model on the server.
-
-# This code creates a NEW model, rather than using the pre-installed model.
 modelName <- paste("RecommendationsModel", myID, sep="-")
 model <- Model$new(project=projectName, name=modelName, 
                    description="A model to show propensity for buying a particular product.")
@@ -66,7 +69,7 @@ model$addActivityEvent(dataset="StoreVisit", dimensions="City")
 model$addActivityEvent(dataset="CustomerServiceCall", dimensions="Reason")
 model$addActivityEvent(dataset="Offer", dimensions=list(c("ProductName","OfferType")))
 
-# Identify the target dataset for modeling. In a model, the target is the
+# Identify the response dataset for modeling. In a model, the response is the
 # event representing the outcome you're trying to predict. 
 model$setResponseEvent(dataset="Purchase", predictionDimensions="ProductName")
 
@@ -77,24 +80,12 @@ model$setResponseEvent(dataset="Purchase", predictionDimensions="ProductName")
 # you've supplied. Depending on the amount of data, it can take some 
 # time to execute the model. Use the getStatus function to report progress
 # to the console.
-
-# Uncomment these lines to create your own model on the server, 
-# executing the model as configured using the preceding code.
-#model$execute()
-#model$getStatus()
+model$execute()
+model$getStatus()
 
 
 ##### Step 5: Score the model. When scoring, you apply the newly created model
 ##### against fresh data to see how reliable the model is. 
-
-# Get the EXISTING model from the Insights server to build a NEW score 
-# and report with. Comment the following two lines to 
-# have the remainder of the code use the model configured above.
-modelName <- paste("RecommendationsModel")
-projectName <- paste("RecommendationsTutorial")
-
-# Get the model from the server.
-model <- account$getProject(projectName)$getModel(modelName)
 
 # Create a score object. The target score time specifies the start of 
 # the timestamp range for data to use when scoring. By default, the end time
@@ -107,7 +98,6 @@ score <- Score$new(model, name=scoreName,
 # Execute the scoring process on the server.
 score$execute()
 score$getStatus()
-
 
 ##### Step 6: Generate a model accuracy report.
 
@@ -122,20 +112,7 @@ report$getStatus()
 
 ##### Step 7: Get the accuracy report and plot it into a chart.
 
-# Load EXISTING report data from the server into an object. Comment the first lines
-# and uncomment the second to have this code plot reports for the model
-# configured above.
-chartReport <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")$getScore("RecommendationsModelScore")$getReport("RecommendationsModelAccuracyReport")
-#cReport <- account$getProject(projectName)$getModel(modelName)$getScore(scoreName)$getReport(reportName)
-
-chartReport$getStatus()
-
-# Plot the gain chart.
-chartReport$plot("SkipHopZooBackpack", type="GAIN")
-
-# Plot the lift chart.
-chartReport$plot("SkipHopZooBackpack", type="LIFT")
-
-# Plot the "area under the curve" chart. 
-chartReport$plot("SkipHopZooBackpack", type="AUC")
-
+# Plot the gain, lift, and AUC charts.
+report$plot("SkipHopZooBackpack", type="GAIN")
+report$plot("SkipHopZooBackpack", type="LIFT")
+report$plot("SkipHopZooBackpack", type="AUC")

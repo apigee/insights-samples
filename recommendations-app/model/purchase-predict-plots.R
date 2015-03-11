@@ -5,10 +5,16 @@
 library(ApigeeInsights)
 ls <- rm();
 
+# Variables for parameters to use when connecting to Insights 
+# from code. Replace the values here with values for your Insights account.
+accountName <- "your-insights-account-name"
+userName <- "your-insights-username"
+password <- "your-insights-password"
+hostName <- "url-to-your-insights-host"
+
 # Create a connection for creating the model on the Insights server.
-# Before you can create a connection, you'll need to edit values in the .cnf
-# file, adding values you can use to connect to Insights.
-account <- connect(configFile="insights-connection.cnf")
+account <- connect(account = accountName, user = userName, 
+                   password = password, host = hostName)
 
 # Declare which report and score to get information about.
 cModel <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")
@@ -24,11 +30,7 @@ stream(cReport, 10)
 
 ## Plot the report data in charts.
 
-# Plot the gain chart.
+# Plot the gain, lift, and AUC charts.
 cReport$plot("SkipHopZooBackpack", type="GAIN")
-
-# Plot the lift chart.
 cReport$plot("SkipHopZooBackpack", type="LIFT")
-
-# Plot the "area under the curve" chart. 
 cReport$plot("SkipHopZooBackpack", type="AUC")
