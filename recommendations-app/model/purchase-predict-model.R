@@ -8,7 +8,6 @@
 
 # Use the ApigeeInsights R package to provide modeling functions.
 library(ApigeeInsights)
-ls <- rm();
 
 # Variables for parameters to use when connecting to Insights 
 # from code. Replace the values here with values for your Insights account.

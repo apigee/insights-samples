@@ -3,7 +3,6 @@
 
 # Connect to Insights environment and load the library #####
 library(ApigeeInsights)
-ls <- rm();
 
 # Variables for parameters to use when connecting to Insights 
 # from code. Replace the values here with values for your Insights account.
