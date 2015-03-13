@@ -17,7 +17,7 @@ This sample is intended to be used in conjunction with pre-installed data in the
 
 This sample assumes that you have the following:
 
-- An [Apigee Insights](https://apigee.com/insights) account to access pre-installed data.
+- An Apigee Insights account to access pre-installed data.
 - An [Apigee API BaaS](https://apigee.com/appservices) account to store recommendation data.
 - An environment to run R scripts (such as [RStudio](http://www.rstudio.com/products/rstudio/download/)) for building the predictive model.
 - An installation of [Apigee-127]() to serve recommendations via an API.
