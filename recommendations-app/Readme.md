@@ -19,7 +19,7 @@ This sample assumes that you have the following:
 
 - An [Apigee Insights](https://apigee.com/insights) account to access pre-installed data.
 - An [Apigee API BaaS](https://apigee.com/appservices) account to store recommendation data.
-- An environment to run R scripts (such as RStudio) for building the predictive model.
+- An environment to run R scripts (such as [RStudio](http://www.rstudio.com/products/rstudio/download/)) for building the predictive model.
 - An installation of [Apigee-127]() to serve recommendations via an API.
 
 ## Running the Sample
@@ -35,7 +35,7 @@ If you just want to run the API portion of the sample:
 
 ## Documentation
 
-- [Recommendations Tutorial](http://apigee.com/docs/insights/content/recommendations-tutorial): Walk through or build this application.
-- [Apigee Insights](http://apigee.com/docs/insights/content/insights-home): 
-- [Apigee API BaaS](http://apigee.com/docs/api-baas): 
-- [Apigee-127](http://apigee.com/docs/api-services/content/apigee-127):
+- [Recommendations Tutorial](http://apigee.com/docs/insights/content/recommendations-tutorial).
+- [Apigee Insights docs](http://apigee.com/docs/insights/content/insights-home)
+- [Apigee API BaaS docs](http://apigee.com/docs/api-baas)
+- [Apigee-127 docs](http://apigee.com/docs/api-services/content/apigee-127)
