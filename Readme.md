@@ -11,6 +11,6 @@ Samples Included
 Documentation
 -------------
 
-- Recommenations Tutorial -- A walkthrough describing how to use Insights and other technologies to build the app: (http://apigee.com/docs/insights/content/recommendations-tutorial)
-- Documentation about Insights: (http://apigee.com/docs/insights/content/insights-home)
+- Recommenations Tutorial -- A walkthrough describing how to use Insights and other technologies to build the app: http://apigee.com/docs/insights/content/recommendations-tutorial
+- Documentation about Insights: http://apigee.com/docs/insights/content/insights-home
 
