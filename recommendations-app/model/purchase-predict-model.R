@@ -26,7 +26,7 @@ account <- connect(account = accountName, user = userName,
 # already on the server. Each time you run this script to create new 
 # objects on the server, you’ll need to change this value to avoid
 # name conflicts with objects already on the server.
-myID <- “version1”
+myID <- "version1"
 
 ##### Step 2: Get things started by identifying a server-side
 ##### project and the catalog holding the data.
