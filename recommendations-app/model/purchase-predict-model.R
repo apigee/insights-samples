@@ -22,16 +22,18 @@ account <- connect(account = accountName, user = userName,
                   password = password, host = hostName)
 
 # Change this value to append new models, scores, and reports with
-# your name as an identifier. This helps avoid conflicts with artifacts
-# already on the server.
-myID <- "your-name-or-other-identifier"
+# something as an identifier. This helps avoid conflicts with artifacts
+# already on the server. Each time you run this script to create new 
+# objects on the server, you’ll need to change this value to avoid
+# name conflicts with objects already on the server.
+myID <- “version1”
 
 ##### Step 2: Get things started by identifying a server-side
 ##### project and the catalog holding the data.
 
 # Name the server-side project that will hold the modeling
 # configuration created by this code. Insights creates the project.
-projectName <- paste("RecommendationsTutorial", myID, sep="-")
+projectName <- paste("RecTutorial", myID, sep="-")
 
 # Specify the catalog that contains the datasets to be 
 # used by this model. RetailDatasets is a pre-installed catalog.
@@ -45,7 +47,7 @@ setCatalog("RetailDatasets")
 
 # Create a model object so you can start setting model details. The name 
 # value is used to identify the model on the server.
-modelName <- paste("RecommendationsModel", myID, sep="-")
+modelName <- paste("RecModel", myID, sep="-")
 model <- Model$new(project=projectName, name=modelName, 
                    description="A model to show propensity for buying a particular product.")
 
@@ -90,7 +92,7 @@ model$getStatus()
 # Create a score object. The target score time specifies the start of 
 # the timestamp range for data to use when scoring. By default, the end time
 # omitted here is the latest timestamp found in the data.
-scoreName <- paste("RecommendationsModelScore", myID, sep="-")
+scoreName <- paste("RecModelScore", myID, sep="-")
 score <- Score$new(model, name=scoreName, 
                    description="Output score from applying the model to the scoring dataset", 
                    targetScoreTime="2013-08-20")
@@ -102,7 +104,7 @@ score$getStatus()
 ##### Step 6: Generate a model accuracy report.
 
 # Create a report object with a name to identify it on the server. 
-reportName <- paste("RecommendationsModelAccuracyReport", myID, sep="-")
+reportName <- paste("RecModelAccuracyReport", myID, sep="-")
 report <- Report$new(score=score, name=reportName)
 
 # Execute the reporting process on the server.
