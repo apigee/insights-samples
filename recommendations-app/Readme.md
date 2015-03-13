@@ -35,7 +35,7 @@ If you just want to run the API portion of the sample:
 
 ## Documentation
 
-- [Recommendations Tutorial](http://apigee.com/docs/insights/content/recommendations-tutorial).
-- [Apigee Insights docs](http://apigee.com/docs/insights/content/insights-home)
-- [Apigee API BaaS docs](http://apigee.com/docs/api-baas)
-- [Apigee-127 docs](http://apigee.com/docs/api-services/content/apigee-127)
+- [Recommendations Tutorial](http://apigee.com/docs/insights/content/recommendations-tutorial)
+- [Apigee Insights](http://apigee.com/docs/insights/content/insights-home)
+- [Apigee API BaaS](http://apigee.com/docs/api-baas)
+- [Apigee-127](http://apigee.com/docs/api-services/content/apigee-127)
