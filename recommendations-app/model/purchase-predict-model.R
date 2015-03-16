@@ -14,7 +14,7 @@ library(ApigeeInsights)
 accountName <- "your-insights-account-name"
 userName <- "your-insights-username"
 password <- "your-insights-password"
-hostName <- "url-to-your-insights-host"
+hostName <- "https://insights.apigee.net/api"
 
 # Create a connection for creating the model on the Insights server.
 account <- connect(account = accountName, user = userName, 
@@ -25,7 +25,7 @@ account <- connect(account = accountName, user = userName,
 # already on the server. Each time you run this script to create new 
 # objects on the server, you’ll need to change this value to avoid
 # name conflicts with objects already on the server.
-myID <- "version1"
+myID <- "v1"
 
 ##### Step 2: Get things started by identifying a server-side
 ##### project and the catalog holding the data.

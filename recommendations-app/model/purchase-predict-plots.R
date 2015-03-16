@@ -9,7 +9,7 @@ library(ApigeeInsights)
 accountName <- "your-insights-account-name"
 userName <- "your-insights-username"
 password <- "your-insights-password"
-hostName <- "url-to-your-insights-host"
+hostName <- "https://insights.apigee.net/api"
 
 # Create a connection for creating the model on the Insights server.
 account <- connect(account = accountName, user = userName, 
