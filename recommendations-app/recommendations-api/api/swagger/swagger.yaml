@@ -2,43 +2,45 @@ swagger: "2.0"
 info:
   version: "0.0.1"
   title: Recommendations API
-# during dev, should point to your local machine
+# While you're developing, this should point to your local machine.
 host: localhost
-# basePath prefixes all resource paths 
+# The base path prefixes all resource paths.
 basePath: /
-# 
 schemes:
-  # tip: remove http to make production-grade
+  # Tip: Remove http to make production-grade.
   - http
   - https
-# format of bodies a client can send (Content-Type)
+# Format of request bodies a client can send (Content-Type).
 consumes:
   - application/json
-# format of the responses to the client (Accepts)
+# Format of the response bodies you can return to the client (Accepts).
 produces:
   - application/json
 x-a127-config: {}
 x-a127-services: {}
 paths:
+  # The path that clients will use when requesting recommendations. This 
+  # is this API's only endpoint.
   /customers/{customer_id}/recommendations:
-    # binds a127 app logic to a route
+    # Specifies the name of the controller JavaScript file that 
+    # contains logic for this path: recommendations.js.
     x-swagger-router-controller: recommendations
     x-a127-apply: {}
+    # Specifies support for handling GET requests to this API endpoint.
     get:
       description: Returns personalized customer recommendations.
-      # used as the method name of the controller
+      # The name of the function in the controller file that will
+      # contain the logic for GET requests to this API endpoint.
       operationId: getRecommendations
+      # Parameters support for GET requests.
       parameters:
+        # With the name parameter they pass, clients specify the user ID 
+        # for the customer whose recommendations should be returned.
         - name: customer_id
           in: path
           description: The customer Id to get recommendations for. Use "@me" to leverage customer Id associated assigned to the access token. When no customer Id is associated to the access token a default set of products is returned. With this design we can achieve two purposes, serving apps trusted by the API that have broader access and untrusted apps, which are limited by the customer Id bound to the access token.
           required: true
           type: string
-        #- name: type
-        #  in: query
-        #  description: The type of recommendations to be queried. Only "products" is currently supported, additional support for "departments" will be provided down the road. If no type is given, this resource will use "products" by default.
-        #  required: false
-        #  type: string
         - name: ql
           in: query
           description: Works similar to a SQL relational database in which you can specify, columns to be included, ordering, and filtering criteria. Since the backend of this API is based on Apigee BaaS, you can apply the same syntax available from this page http://apigee.com/docs/app-services/content/querying-your-app-services-data. If this parameter is not present, by default all entity attributes are returned. Example, /recommendations?ql=select * where productName contains 'BermudaShorts' order by name asc. Query examples in this content are shown URL unencoded to make them easier to read. Keep in mind that you might need to encode query strings if you're sending them as part of URLs, such as when you're executing them with the cURL tool.
@@ -54,19 +56,26 @@ paths:
           description: limit results returned. Default first 10 elements.
           required: false
           type: integer
+      # Supported responses.
       responses:
+        # Response for a successful call to this API endpoint.
         "200":
           description: Success
           schema:
-            # a pointer to a definition
+            # Reference to the response definition (included in this file)
+            # that will be returned for a successful call to this API endpoint.
             $ref: "#/definitions/RecommendationsResponse"
-        # responses may fall through to errors
+        # Response for an unsuccessful call.
         default:
           description: Error
           schema:
+            # Reference to the response definition (also in this file) to 
+            # return to indicate an unsuccessful call.
             $ref: "#/definitions/ErrorResponse"
-# complex objects have schema definitions
+# Definitions for response types -- how this API will respond for successful 
+# and unsuccessful calls.
 definitions:
+  # Definition for the shape of data to return if the call is successful.
   RecommendationsResponse:
     type: object
     properties:
@@ -130,6 +139,7 @@ definitions:
         type: string
       duration:
         type: string
+  # Definition for the response in case of an unsuccessful call.
   ErrorResponse:
     required:
       - message
