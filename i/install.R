@@ -1,7 +1,3 @@
-########GLOBALS##########
-orgName <- "<OrgName>"
-userName <- "<UserName>"
-#########################
 apigee_download <- function(downloadUrl, destinationFile)
 {
   cat("Downloading from ",downloadUrl,"\n",sep="")
