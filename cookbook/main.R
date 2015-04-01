@@ -36,7 +36,7 @@ tryCatch({
     apigee_download(downloadUrl, downloadDestination)
     source(downloadDestination)
   }
-  invisible(sapply(c("downloadSamples.R","install.R"), downloadAndSource))
+  invisible(sapply(filesToDownloadAndSource, downloadAndSource))
   .GlobalEnv$commandArgs <- base::commandArgs
 }, error = function(err) {
   .GlobalEnv$commandArgs <- base::commandArgs
