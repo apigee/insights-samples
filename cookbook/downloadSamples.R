@@ -6,6 +6,13 @@ if(length(args) > 0)
 
 apigee_download <- function(downloadUrl, destinationFile)
 {
+  overwrite <- "y"
+  if(file.exists(destinationFile))
+  {
+    overwrite <- readline(prompt=paste("File (",destinationFile,") already available. Overwrite? (y or n) [y]: ",sep=""))
+  }
+  if(overwrite == "n")
+    return()
   cat("Downloading from ",downloadUrl,"\n",sep="")
   tryCatch({download.file(url=downloadUrl,destinationFile)},
            error=function(x){
@@ -33,8 +40,8 @@ createScript <- "purchase-predict-model.R"
 createScriptUrl <- paste(modelUrl,createScript,sep="")
 createScriptDestination <- file.path(downloadDirectory,createScript)
 
-apigee_download(plotScriptUrl, plotScriptDestination)
-apigee_download(createScriptUrl, createScriptDestination)
+invisible(apigee_download(plotScriptUrl, plotScriptDestination))
+invisible(apigee_download(createScriptUrl, createScriptDestination))
 
 file.edit(plotScriptDestination)
 file.edit(createScriptDestination)

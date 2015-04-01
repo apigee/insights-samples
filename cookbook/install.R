@@ -6,6 +6,13 @@ if(length(args) > 0)
 
 apigee_download <- function(downloadUrl, destinationFile)
 {
+  overwrite <- "y"
+  if(file.exists(destinationFile))
+  {
+    overwrite <- readline(prompt=paste("File (",destinationFile,") already available. Overwrite? (y or n) [y]: ",sep=""))
+  }
+  if(overwrite == "n")
+    return()
   cat("Downloading from ",downloadUrl,"\n",sep="")
   tryCatch({download.file(url=downloadUrl,destinationFile)},
            error=function(x){
@@ -46,9 +53,8 @@ confFile <- "insights-connection-config"
 confFileUrl <- paste(modelUrl,confFile,sep="")
 confFileDestination <- file.path(downloadDirectory,confFile)
 
-apigee_download(rPackageUrl, rPackageDestination)
-if(!file.exists(confFileDestination))
-  apigee_download(confFileUrl, confFileDestination)
+invisible(apigee_download(rPackageUrl, rPackageDestination))
+invisible(apigee_download(confFileUrl, confFileDestination))
 file.edit(confFileDestination)
 
 remove.packages(c("ApigeeInsights"))
