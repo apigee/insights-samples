@@ -1,6 +1,6 @@
+args <- commandArgs(trailingOnly = TRUE)
 #change this if you want a different directory as your download path.
-if(!exists("downloadDirectory") || is.null(downloadDirectory))
-  downloadDirectory <- getwd()
+if(length(args) == 0) downloadDirectory <- getwd() else downloadDirectory <- args[[1]]
 
 apigee_download <- function(downloadUrl, destinationFile)
 {
@@ -52,4 +52,4 @@ file.edit(confFileDestination)
 remove.packages(c("ApigeeInsights"))
 install_packages(c("RCurl", "pander", "RJSONIO"))
 install.packages(rPackageDestination,repo=NULL,type="source")
-cat("Config file is downloaded to ",confFileDestination,sep="")
+cat("Config file is downloaded to ",confFileDestination,"\n",sep="")
