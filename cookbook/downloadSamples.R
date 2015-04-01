@@ -1,7 +1,7 @@
 args <- commandArgs(trailingOnly = TRUE)
 #change this if you want a different directory as your download path.
 downloadDirectory <- getwd()
-if(length(args) != 0)
+if(length(args) > 0)
   downloadDirectory <- args[[1]]
 
 apigee_download <- function(downloadUrl, destinationFile)
@@ -15,7 +15,7 @@ apigee_download <- function(downloadUrl, destinationFile)
                         tryCatch({download.file(url=downloadUrl,destinationFile,method="wget")},
                                  warning=function(z)
                                  {
-                                   stop("Cannot start download.")
+                                   stop("Cannot download.")
                                  })
                       })
            })
