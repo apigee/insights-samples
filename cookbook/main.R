@@ -3,7 +3,9 @@ baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 downloadBaseUrl <- paste(baseUrl,"cookbook/",sep="")
 args <- commandArgs(trailingOnly = TRUE)
 #change this if you want a different directory as your download path.
-if(length(args) == 0) downloadDirectory <- "/Users/akhilesh/insights-samples/cookbook/test" else downloadDirectory <- args[[1]]
+downloadDirectory <- getwd()
+if(length(args) != 0)
+  downloadDirectory <- args[[1]]
 
 apigee_download <- function(downloadUrl, destinationFile)
 {
