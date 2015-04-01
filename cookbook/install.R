@@ -47,8 +47,8 @@ confFileUrl <- paste(modelUrl,confFile,sep="")
 confFileDestination <- file.path(downloadDirectory,confFile)
 
 apigee_download(rPackageUrl, rPackageDestination)
-apigee_download(confFileUrl, confFileDestination)
-
+if(!file.exists(confFileDestination))
+  apigee_download(confFileUrl, confFileDestination)
 file.edit(confFileDestination)
 
 remove.packages(c("ApigeeInsights"))
