@@ -7,7 +7,7 @@ downloadDirectory <- getwd()
 if(length(args) > 0)
   downloadDirectory <- args[[1]]
 
-apigee_download <- function(downloadUrl, destinationFile)
+apigee_download_overwrite <- function(downloadUrl, destinationFile)
 {
   cat("Downloading from ",downloadUrl,"\n",sep="")
   tryCatch({download.file(url=downloadUrl,destinationFile)},
@@ -33,7 +33,7 @@ tryCatch({
   {
     downloadUrl <- paste(downloadBaseUrl,file,sep="")
     downloadDestination <- file.path(downloadDirectory,file)
-    apigee_download(downloadUrl, downloadDestination)
+    apigee_download_overwrite(downloadUrl, downloadDestination)
     source(downloadDestination)
   }
   invisible(sapply(filesToDownloadAndSource, downloadAndSource))
