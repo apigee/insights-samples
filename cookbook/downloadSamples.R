@@ -28,9 +28,9 @@ apigee_download <- function(downloadUrl, destinationFile)
            })
   cat("Copied to ",destinationFile,"\n",sep="")
 }
-baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/apps/"
+baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 
-modelUrl <- paste(baseUrl,"recommendations-app/model/",sep="")
+modelUrl <- paste(baseUrl,"apps/recommendations-app/model/",sep="")
 
 plotScript <- "purchase-predict-plots.R"
 plotScriptUrl <- paste(modelUrl,plotScript,sep="")

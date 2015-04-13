@@ -48,7 +48,7 @@ rPackage <- "ApigeeInsights_2.2.0.tar.gz"
 rPackageUrl <- paste(libUrl,rPackage,sep="")
 rPackageDestination <- file.path(downloadDirectory,rPackage)
 
-modelUrl <- paste(baseUrl,"recommendations-app/model/",sep="")
+modelUrl <- paste(baseUrl,"apps/ecommendations-app/model/",sep="")
 confFile <- "insights-connection-config"
 confFileUrl <- paste(modelUrl,confFile,sep="")
 confFileDestination <- file.path(downloadDirectory,confFile)
