@@ -28,24 +28,19 @@ These are the schemas of the datasets included here.
 
 <table>
     <tr>
-        <th>Column</th>
-        <th>Data Type</th>
-        <th>Notes</th>
-    </tr>
-    <tr>
         <td>UserID</td>
-        <td>String</td>
-        <td>user</td>
-    </tr>
-    <tr>
         <td>Time</td>
-        <td>date &lt;yyyy-MM-dd HH:mm:ss></td>
-        <td>timestamp</td>
+        <td>Type</td>
     </tr>
     <tr>
-        <td>Type</td>
         <td>String</td>
-        <td></td>
+        <td>date &lt;yyyy-MM-dd HH:mm:ss></td>
+        <td>String</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>timestamp</td>
+        <td> </td>
     </tr>
 </table>
 
