@@ -74,11 +74,6 @@ The datasets in this catalog describe activities around customer service. This i
         <td>String</td>
         <td></td>
     </tr>
-    <tr>
-        <td>StartTime</td>
-        <td>String</td>
-        <td></td>
-    </tr>
 </table>
 
 #### Chat
