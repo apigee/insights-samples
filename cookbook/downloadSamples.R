@@ -28,7 +28,7 @@ apigee_download <- function(downloadUrl, destinationFile)
            })
   cat("Copied to ",destinationFile,"\n",sep="")
 }
-baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
+baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/apps/"
 
 modelUrl <- paste(baseUrl,"recommendations-app/model/",sep="")
 
