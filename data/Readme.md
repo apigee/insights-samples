@@ -1,29 +1,33 @@
-Data Examples
-=============
+# Data Examples
 
-These datasets 
+The datasets in this directory are provided for you to use when experimenting with Insights. You can import the datasets to Insights, then use them to create journeys or predictve models.
 
-Samples Included
-----------------
+## Catalogs Included
 
-Catalogs
+- Financial -- Datasets that describe user activity with a financial institution. This includes transfers and stock trades.
 
-- Financial
+## Setting Up
 
-Setting Up
-----------
+Each tarball contains datasets for a different catalog (the Insights way to group related datasets). To use the data in journeys and models, you first import it into your Insights organization.
 
-# Download the datasets
-# Import datasets into Insights
+1. Download and untar the sample files. You'll end up with a catalog directory for each containing multiple datasets.
+2. In a web browser, go to the Insights console to import the datasets.
+3. Click the Data tab and follow UI guidance to import each dataset for a catalog.
 
-Schemas
--------
+For more information, see the [documentation about importing data](http://apigee.com/docs/insights/content/importing-data-data-browser).
 
-These are the schemas of the sample datasets.
+## Dataset Schemas
 
 ### Financial Catalog
 
 The Financial catalog datasets describe user activity with a financial institution. This includes transfers and stock trades. 
+
+#### Suggested Uses
+
+- Predictive model
+
+- Journey
+
 
 #### Account
 
