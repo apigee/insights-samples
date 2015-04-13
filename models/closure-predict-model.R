@@ -35,7 +35,7 @@ projectName <- paste("financial", myID, sep="-")
 
 # Specify the catalog that contains the datasets to be 
 # used by this model.
-setCatalog("FinancialDatasets")
+setCatalog("Financial")
 
 ##### Step 3: Create the model to train it with a subset of the data to 
 ##### identify patterns based on the events you specify.
