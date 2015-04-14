@@ -24,9 +24,8 @@ The Financial catalog datasets describe user activity with a financial instituti
 
 #### Suggested Uses
 
-- Predictive model
-
-- Journey
+- Predict account closures. Once you've imported the data, try the [closure predict model](https://github.com/apigee/insights-samples/blob/master/models/closure-predict-model.R) to predict how likely it is users will close accounts.
+- 
 
 
 #### Account
