@@ -51,7 +51,6 @@ function getRecommendations(req, res) {
   // score data corresponding to users. The query string represented
   // by ql specifies the user ID to use when filtering scores.
   var options = {
-    //type:'testscoresimport',
     type:'recommendationscores',
     qs: {ql : ql,
          limit : req.swagger.params.limit.value || 10
@@ -61,21 +60,22 @@ function getRecommendations(req, res) {
   var recommendations = [];
 
   // Call a function of the API BaaS client object to create a local 
-  // collection object representing collection data on the API BaaS server. The 
+  // collection object representing collection data in the API BaaS data store. The 
   // callback function receives a recommendationScores collection of API BaaS entities 
   // representing members of the new collection. 
   client.createCollection(options, function (err, recommendationScoresBaaS) {
     if (err) {
       // TODO: Code to handle the case of failure to create a collection.
     } else {
-        // 
         var responseEntities = {entities : []}
         var recommendation = {};
+        // Loop through the entities returned from API BaaS, adding each to 
+        // a new array.
         while(recommendationScoresBaaS.hasNextEntity()){
-          // Add an entity to the recommendations array.
           recommendations.push(recommendationScoresBaaS.getNextEntity());
         }
-        // For each of the recommendations, 
+        // For each of the recommendation items retrieved from API BaaS, 
+        // merge its data with product data and build response in JSON. 
         async.each(recommendations, 
           function(recommendation, callback){
             // Create a local products collection object from API BaaS products entities.
@@ -87,7 +87,8 @@ function getRecommendations(req, res) {
                 // Handle error.
               } else {
                   // Using the returned API BaaS products collection, create
-                  // an array 
+                  // an array of response entities that merges product data
+                  // into recommendation data.
                   if(productsBaaS.hasNextEntity()) {
                       var productBaaS = productsBaaS.getNextEntity();
                       var responseEntity = {};
@@ -101,6 +102,7 @@ function getRecommendations(req, res) {
               callback();
             }, client);
           },
+          // Callback function for merging function.
           function(callback){
             responseEntities.cursor = recommendationScoresBaaS._next;
             res.json(responseEntities);
