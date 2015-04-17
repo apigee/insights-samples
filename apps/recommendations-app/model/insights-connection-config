@@ -1,6 +1,6 @@
 {
-  "account":"your-insights-account-name",
+  "org":"your-insights-account-name",
   "user":"your-insights-username",
   "password":"your-insights-account-password",
-  "host":"http://insights.apigee.net/IOMarketingManagerAPISS"
+  "host":"https://insights.apigee.net/e2e/api"
 }

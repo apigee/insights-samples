@@ -4,28 +4,22 @@
 # Connect to Insights environment and load the library #####
 library(ApigeeInsights)
 
-# Variables for parameters to use when connecting to Insights 
-# from code. Replace the values here with values for your Insights account.
-accountName <- "your-insights-account-name"
-userName <- "your-insights-username"
-password <- "your-insights-password"
-hostName <- "https://insights.apigee.net/api"
-
 # Create a connection for creating the model on the Insights server.
-account <- connect(account = accountName, user = userName, 
-                   password = password, host = hostName)
+# Make surethe path to the config file is proper
+config <- paste(getwd(),"/insights-connection-config",sep="")
+invisible(connect(configFile = config))
 
 # Declare which report and score to get information about.
-cModel <- account$getProject("RecommendationsTutorial")$getModel("RecommendationsModel")
-cScore <- cModel$getScore("RecommendationsModelScore")
-cReport <- cScore$getReport("RecommendationsModelAccuracyReport")
+cModel <- getProject(name = "RecommendationsTutorial")$getModel(name = "RecommendationsModel")
+cScore <- cModel$getScore(name = "RecommendationsModelScore")
+cReport <- cScore$getReport(name = "RecommendationsModelAccuracyReport")
 
 # Print out the score and report objects in tabular form. These lines print 
 # (to the console) what the top 10 items in the score and report actually 
 # contain.
-stream(cModel, 10)
-stream(cScore, 10)
-stream(cReport, 10)
+cModel$stream(10)
+cScore$stream(10)
+cReport$stream(10)
 
 ## Plot the report data in charts.
 

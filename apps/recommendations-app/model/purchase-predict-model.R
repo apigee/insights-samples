@@ -9,16 +9,10 @@
 # Use the ApigeeInsights R package to provide modeling functions.
 library(ApigeeInsights)
 
-# Variables for parameters to use when connecting to Insights 
-# from code. Replace the values here with values for your Insights account.
-accountName <- "your-insights-account-name"
-userName <- "your-insights-username"
-password <- "your-insights-password"
-hostName <- "https://insights.apigee.net/api"
-
 # Create a connection for creating the model on the Insights server.
-account <- connect(account = accountName, user = userName, 
-                  password = password, host = hostName)
+# Make surethe path to the config file is proper
+config <- paste(getwd(),"/insights-connection-config",sep="")
+invisible(connect(configFile = config))
 
 # Change this value to append new models, scores, and reports with
 # something as an identifier. This helps avoid conflicts with artifacts
