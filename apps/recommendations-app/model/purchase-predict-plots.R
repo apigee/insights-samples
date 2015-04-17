@@ -1,12 +1,15 @@
 # This script simply retrieves information from an existing score and report
 # on the Insights server, printing the information in table and chart formats.
 
-# Connect to Insights environment and load the library #####
+# Load the Insights R package.
 library(ApigeeInsights)
 
-# Create a connection for creating the model on the Insights server.
-# Make sure the path to the config file is proper
+# Collect configuration parameters from the config insights-connection-config file. 
+# The paste function forms a path by concatenating the working directory 
+# (where this R file is) with the name of the config file. If your config file isn't
+# in the same directory as this script file, be sure to make the appropriate changes.
 config <- paste(getwd(),"/insights-connection-config",sep="")
+# Connect to the Insights server, but do it invisibly (without printing to the console).
 invisible(connect(configFile = config))
 
 # Declare which report and score to get information about.
