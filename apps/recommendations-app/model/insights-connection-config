@@ -1,5 +1,5 @@
 {
-  "org":"your-insights-account-name",
+  "org":"your-insights-org-name",
   "user":"your-insights-username",
   "password":"your-insights-account-password",
   "host":"https://insights.apigee.net/e2e/api"
