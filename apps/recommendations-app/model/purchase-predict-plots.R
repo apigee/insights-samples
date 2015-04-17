@@ -5,7 +5,7 @@
 library(ApigeeInsights)
 
 # Create a connection for creating the model on the Insights server.
-# Make surethe path to the config file is proper
+# Make sure the path to the config file is proper
 config <- paste(getwd(),"/insights-connection-config",sep="")
 invisible(connect(configFile = config))
 
