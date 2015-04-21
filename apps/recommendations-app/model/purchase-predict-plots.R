@@ -20,9 +20,9 @@ cReport <- cScore$getReport(name = "RecommendationsModelAccuracyReport")
 # Print out the score and report objects in tabular form. These lines print 
 # (to the console) what the top 10 items in the score and report actually 
 # contain.
-cModel$stream(10)
-cScore$stream(10)
-cReport$stream(10)
+print(cModel$stream(10))
+print(cScore$stream(10))
+print(cReport$stream(10))
 
 ## Plot the report data in charts.
 
