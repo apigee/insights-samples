@@ -1,0 +1,6 @@
+{
+  "account":"your-insights-org-name",
+  "user":"your-insights-username",
+  "password":"your-insights-account-password",
+  "host":"https://insights.apigee.net/api"
+}
