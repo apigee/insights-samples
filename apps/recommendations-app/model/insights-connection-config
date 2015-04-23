@@ -1,6 +1,13 @@
 {
-  "account":"your-insights-org-name",
-  "user":"your-insights-username",
-  "password":"your-insights-account-password",
+  "__comment": "org name can be found in the UI menu bar under the org tree icon on top right of the screen.",
+  "__comment": "Also you need *not* provide the org key,value pair below and then use getOrgList and setOrg methods.",
+  
+  "org":"your-apigee-org-name",
+
+  "__comment": "The value for the below user key can be your emalID or username",
+  "user":"your-apigee-username",
+
+  "password":"your-password",
+
   "host":"https://insights.apigee.net/api"
 }

@@ -44,7 +44,7 @@ install_packages <- function(packages)
 }
 baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 libUrl <- paste(baseUrl,"lib/",sep="")
-rPackage <- "ApigeeInsights_0.5.3.tar.gz"
+rPackage <- "ApigeeInsights_2.2.0.tar.gz"
 rPackageUrl <- paste(libUrl,rPackage,sep="")
 rPackageDestination <- file.path(downloadDirectory,rPackage)
 
