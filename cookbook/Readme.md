@@ -4,17 +4,7 @@ Use the R scripts in this directory to get started more quickly. You can
 
 ## Scripts Included
 
-- downloadSamples.R -- foo.
-- install.R -- foo.
-- main.R -- foo.
-
-## Using the Scripts
-
-Use the scripts to get set up to run R scripts to create predictive models.
-
-1. Download and untar the sample files. You'll end up with a catalog directory for each containing multiple datasets.
-2. In a web browser, go to the Insights console to import the datasets.
-3. Click the Data tab and follow UI guidance to import each dataset for a catalog.
-
-For more information, see the [documentation about importing data](http://apigee.com/docs/insights/content/importing-data-data-browser).
+- downloadSamples.R -- Downloads the R samples from this repository.
+- install.R -- Installs R package dependencies needed to run code with the Insights R SDK.
+- main.R -- Runs the two preceding scripts. Use this to start from scratch with model-building.
 
