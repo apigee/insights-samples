@@ -3,7 +3,52 @@ args <- commandArgs(trailingOnly = TRUE)
 downloadDirectory <- getwd()
 if(length(args) > 0)
   downloadDirectory <- args[[1]]
+apigee_is_unc <- function(path)
+{
+  uncPattern <- "\\\\"
+  return(substring(path, 1 ,nchar(uncPattern))== uncPattern)
+}
+apigee_check_update_unc <- function()
+{
+  #check for windows
+  if(tolower(Sys.info()[['sysname']]) == "windows")
+  {
+    r_libs_user <- Sys.getenv("R_LIBS_USER")
+    if(apigee_is_unc(r_libs_user))
+    {  
+      user_profile <- Sys.getenv("userprofile")
+      user_name <- Sys.getenv("username")
+      libp <- NULL
+      rPath <- "\\AppData\\R\\Library"
+      if(apigee_is_unc(user_profile))
+      {
+        libp  <- paste('c:\\Users\\',user_name,rPath,sep="")
+      }
+      else
+      {
+        libp  <- paste(user_profile,rPath,sep="")
+      }
+      proceed <- readline(prompt=paste("R_LIBS_USER is a UNC path - ",r_libs_user,"\nand cannot be used to install packages.\nDo you want to update R_LIBS_USER (y or n) [y]: ",sep=""))
 
+      if(proceed == "" || tolower(proceed) == "y")
+      {
+        user_lib_path <- readline(prompt=paste("\nEnter a writable lib location.\nIf not provided, i will default to ",libp," : ",sep=""))
+        if(user_lib_path != "")
+        {
+          if(apigee_is_unc(user_lib_path))
+          {
+            stop("The lib path cannot be a UNC path.")
+          }
+          libp <- user_lib_path
+        }
+        cmd  <- paste('setx R_LIBS_USER "',libp,'"',sep="")
+        dir.create(libp, showWarnings = FALSE, recursive = TRUE)
+        system(cmd)
+        .libPaths(libp)
+      }
+    }
+  }
+}
 apigee_download <- function(downloadUrl, destinationFile)
 {
   overwrite <- "y"
@@ -42,9 +87,10 @@ install_packages <- function(packages)
     }
   }
 }
+apigee_check_update_unc()
 baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 libUrl <- paste(baseUrl,"lib/",sep="")
-rPackage <- "ApigeeInsights_latest.tar.gz"
+rPackage <- "ApigeeInsights_patch.tar.gz"
 rPackageUrl <- paste(libUrl,rPackage,sep="")
 rPackageDestination <- file.path(downloadDirectory,rPackage)
 
