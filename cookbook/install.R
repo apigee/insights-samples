@@ -5,7 +5,7 @@ if(length(args) > 0)
   downloadDirectory <- args[[1]]
 apigee_is_unc <- function(path)
 {
-  uncPattern <- "\\\\"
+  uncPattern <- "//"
   return(substring(path, 1 ,nchar(uncPattern))== uncPattern)
 }
 apigee_check_update_unc <- function()
