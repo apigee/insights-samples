@@ -11,9 +11,14 @@ apigee_is_unc <- function(path)
 apigee_check_update_unc <- function()
 {
   #check for windows
-  if(tolower(Sys.info()[['sysname']]) == "windows")
+  cat("Sysname - ",tolower(Sys.info()[['sysname']]),"\n",sep = "")
+  cat("Platform OS type - ", tolower(.Platform$OS.type),"\n",sep="")
+  if(tolower(Sys.info()[['sysname']]) == "windows" || tolower(.Platform$OS.type) == "windows")
   {
     r_libs_user <- Sys.getenv("R_LIBS_USER")
+    cat("R_LIBS_USER - ",r_libs_user,"\n",sep="")
+    cat("Displaying .libPaths() ....\n")
+    cat(paste(.libPaths()))
     if(apigee_is_unc(r_libs_user))
     {  
       user_profile <- Sys.getenv("userprofile")
@@ -29,7 +34,8 @@ apigee_check_update_unc <- function()
         libp  <- paste(user_profile,rPath,sep="")
       }
       proceed <- readline(prompt=paste("R_LIBS_USER is a UNC path - ",r_libs_user,"\nand cannot be used to install packages.\nDo you want to update R_LIBS_USER (y or n) [y]: ",sep=""))
-
+      
+      
       if(proceed == "" || tolower(proceed) == "y")
       {
         user_lib_path <- readline(prompt=paste("\nEnter a writable lib location.\nIf not provided, i will default to ",libp," : ",sep=""))
@@ -87,6 +93,7 @@ install_packages <- function(packages)
     }
   }
 }
+cat("Checking for UNC path...\n")
 apigee_check_update_unc()
 baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 libUrl <- paste(baseUrl,"lib/",sep="")
@@ -107,3 +114,4 @@ remove.packages(c("ApigeeInsights"))
 install_packages(c("RCurl", "pander", "RJSONIO"))
 install.packages(rPackageDestination,repo=NULL,type="source")
 cat("Config file would be downloaded to ",confFileDestination,"\n",sep="")
+
