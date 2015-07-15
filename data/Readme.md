@@ -33,7 +33,7 @@ The Financial catalog datasets describe user activity with a financial instituti
     <tr>
         <th>Column</th>
         <th>Data Type</th>
-        <th>Notes</th>
+        <th>Tag</th>
     </tr>
     <tr>
         <td>UserID</td>
@@ -58,7 +58,7 @@ The Financial catalog datasets describe user activity with a financial instituti
     <tr>
         <th>Column</th>
         <th>Data Type</th>
-        <th>Notes</th>
+        <th>Tag</th>
     </tr>
     <tr>
         <td>UserID</td>
@@ -118,7 +118,7 @@ The Financial catalog datasets describe user activity with a financial instituti
     <tr>
         <th>Column</th>
         <th>Data Type</th>
-        <th>Notes</th>
+        <th>Tag</th>
     </tr>
     <tr>
         <td>UserID</td>
@@ -183,7 +183,7 @@ The Financial catalog datasets describe user activity with a financial instituti
     <tr>
         <th>Column</th>
         <th>Data Type</th>
-        <th>Notes</th>
+        <th>Tag</th>
     </tr>
     <tr>
         <td>UserID</td>
@@ -213,7 +213,7 @@ The Financial catalog datasets describe user activity with a financial instituti
     <tr>
         <th>Column</th>
         <th>Data Type</th>
-        <th>Notes</th>
+        <th>Tag</th>
     </tr>
     <tr>
         <td>UserID</td>
