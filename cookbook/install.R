@@ -97,7 +97,7 @@ cat("Checking for UNC path...\n")
 apigee_check_update_unc()
 baseUrl <- "https://raw.githubusercontent.com/apigee/insights-samples/master/"
 libUrl <- paste(baseUrl,"lib/",sep="")
-rPackage <- "ApigeeInsights_patch.tar.gz"
+rPackage <- "ApigeeInsights_latest.tar.gz"
 rPackageUrl <- paste(libUrl,rPackage,sep="")
 rPackageDestination <- file.path(downloadDirectory,rPackage)
 
