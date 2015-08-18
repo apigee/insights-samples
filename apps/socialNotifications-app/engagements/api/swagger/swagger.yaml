@@ -1,0 +1,112 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Engagements
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+x-a127-config: {}
+x-a127-services: {}
+paths:
+  /v1/org/{org}/{app}/profile/{username}/activity/{activityType}/{target}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: socialPushNotification
+    x-a127-apply: {}
+    get:
+      description: Push/Email notifications based on users liking/commenting/etc on products that the                     target also liked
+      # used as the method name of the controller
+      operationId: postActivity
+      parameters:
+        - name: org
+          in: path
+          description: The name of the organization
+          required: true
+          type: string
+        - name: app
+          in: path
+          description: The name of the app in the org
+          required: true
+          type: string  
+        - name: username
+          in: path
+          description: The username of the user
+          required: true
+          type: string
+        - name: activityType
+          in: path
+          description: The social activity of the user which be a like, comment, etc
+          required: true
+          type: string
+        - name: target
+          in: path
+          description: The unique identifier of the target or entity that you liking, commenting on, etc
+          required: true
+          type: string
+        - name: baasEntity
+          in: query
+          description: If the target is in baas, this is the name of the collection that it is in, if this parameter is filled, a relationship will be created between the user and the target
+          required: false
+          type: string
+        - name: pushToUser
+          in: query
+          description: Set to true to send a relevant push notification to the user, default to false
+          required: false
+          type: boolean  
+        - name: pushToFollowers
+          in: query
+          description: Set to true to send a push notification to all relevant followers, default to false
+          required: false
+          type: boolean
+        - name: followerMessage
+          in: query
+          description: custom message to send to followers
+          required: false
+          type: string  
+        - name: moreInfo
+          in: query
+          description: Additional payload to save to activity stream object
+          required: false
+          type: string 
+        - name: tag
+          in: query
+          description: if we are pinning something to a group, list, other boards, some type of grouping
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/SuccessResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+         
+# complex objects have schema definitions
+definitions:
+  SuccessResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
